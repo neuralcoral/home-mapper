@@ -1,0 +1,24 @@
+[project]
+name = "simulation"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "🧠 George 🪸", email = "george@neuralcoral.io" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "matplotlib>=3.10.8",
+    "notebook>=7.5.3",
+    "numpy>=2.4.2",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "nbstripout>=0.9.0",
+    "pre-commit>=4.5.1",
+]
