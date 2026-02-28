@@ -8,9 +8,11 @@ authors = [
 ]
 requires-python = ">=3.12"
 dependencies = [
+    "ipympl>=0.10.0",
     "matplotlib>=3.10.8",
     "notebook>=7.5.3",
     "numpy>=2.4.2",
+    "scipy>=1.17.0",
 ]
 
 [build-system]
