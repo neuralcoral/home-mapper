@@ -5,9 +5,10 @@
 Servo myServo;
 
 void setup() {
-    Serial.begin(9600);
+    Serial.begin(115200);
     myServo.attach(3);
-    Serial.println("Setting up at 3");
+    Serial.println("--- ESP8266 Connectivity Test ---");
+    Serial.println("Type 'AT' in the monitor and hit enter.");
 }
 
 void moveTo(int pos)
@@ -20,8 +21,9 @@ void moveTo(int pos)
 
 void loop() {
 
-    for (int i = 0; i < 180; i += 15)
+    if (Serial.available())
     {
-        moveTo(i);
+        char c = Serial.read();
+        Serial.write(c);
     }
 }
