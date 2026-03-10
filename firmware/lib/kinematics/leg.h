@@ -3,28 +3,37 @@
 #include <Servo.h>
 
 #include "coordinate.h"
+#include <Arduino.h>
 
+
+struct GoalAngles {
+    float coxa_angle;
+    float femur_angle;
+};
 class Link
 {
     const float length;
     const float initial_theta;
+    const int servo_pin;
 
     float current_theta;
     Servo servo;
+    void safeWrite(const float& goal_angle);
 public:
     Link(const float& length, const float& initial_theta, const int& servo_pin);
     void setup();
+    void move(const float& goal_angle);
 };
 
 class Leg
 {
-    Link tibia;
+    Link coxa;
     Link femur;
 public:
-    Leg(const Link& tibia, const Link& femur);
+    Leg(Link& coxa, Link& femur);
 
     void setup();
-    void step(const Coordinate& coordinate);
+    void move(const GoalAngles& goal_angles);
 };
 
 
