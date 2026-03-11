@@ -1,0 +1,3 @@
+# Bazel 9 + Bzlmod + Toolchains
+build:avr --platforms=//firmware/toolchain:avr_platform
+build:avr --features=fully_static_link

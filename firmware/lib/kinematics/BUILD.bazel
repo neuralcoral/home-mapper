@@ -1,0 +1,18 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+package(default_visibility = ["//visibility:public"])
+
+cc_library(
+    name = "leg",
+    srcs = ["leg.cc"],
+    hdrs = [
+        "coordinate.h",
+        "leg.h",
+    ],
+    includes = ["."],
+    deps = [
+        "//firmware/lib/tools:debug",
+        "@arduino_core",
+        "@arduino_servo",
+    ],
+)

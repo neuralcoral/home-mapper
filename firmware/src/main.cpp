@@ -1,6 +1,6 @@
 #include <Arduino.h>
 
-#include "../lib/kinematics/leg.h"
+#include "leg.h"
 #include "debug.h"
 
 #define FEMUR_LENGTH 6.0
