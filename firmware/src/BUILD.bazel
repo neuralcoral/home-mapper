@@ -11,3 +11,10 @@ cc_binary(
         "@arduino_core",
     ],
 )
+
+genrule(
+    name = "hex",
+    srcs = [":hexapod"],
+    outs = ["hexapod.hex"],
+    cmd = "avr-objcopy -O ihex -R .eeprom $< $@",
+)
