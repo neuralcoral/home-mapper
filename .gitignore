@@ -1,2 +1,7 @@
 .idea/
-bazel-*
+.clwb/
+
+/bazel-*
+/coverage_report/
+
+.DS_Store

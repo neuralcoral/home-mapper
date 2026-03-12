@@ -1,9 +1,8 @@
 #ifndef HEXAPOD_LEG_H
 #define HEXAPOD_LEG_H
-#include <Servo.h>
 
+#include <i_servo.h>
 #include "coordinate.h"
-#include <Arduino.h>
 
 
 struct GoalAngles {
@@ -14,13 +13,12 @@ class Link
 {
     const float length;
     const float initial_theta;
-    const int servo_pin;
-
     float current_theta;
-    Servo servo;
-    void safeWrite(const float& goal_angle);
+
+    IServo &servo;
+
 public:
-    Link(const float& length, const float& initial_theta, const int& servo_pin);
+    Link(const float& length, const float& initial_theta, IServo& servo);
     void setup();
     void move(const float& goal_angle);
 };

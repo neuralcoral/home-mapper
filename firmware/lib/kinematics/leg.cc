@@ -1,27 +1,21 @@
-#include "../kinematics/leg.h"
+#include "leg.h"
 
 Link::Link(const float& length,
            const float& initial_theta,
-           const int& servo_pin): length(length), initial_theta(initial_theta), servo_pin(servo_pin)
+           IServo& servo): length(length), initial_theta(initial_theta), servo(servo)
 {
     current_theta = initial_theta;
-}
-void Link::safeWrite(const float &goal_angle) {
-    delay(50);
-    servo.write((int)goal_angle);
-    delay(50);
 }
 
 void Link::setup()
 {
     current_theta = initial_theta;
-    safeWrite(current_theta);
-    servo.attach(servo_pin);
+    servo.write((int)current_theta);
 }
 
 void Link::move(const float &goal_angle) {
-    safeWrite(goal_angle);
     current_theta = goal_angle;
+    servo.write((int)goal_angle);
 }
 
 

@@ -6,6 +6,7 @@ cc_binary(
     name = "hexapod",
     srcs = ["main.cpp"],
     deps = [
+        "//firmware/lib/kinematics:hardware",
         "//firmware/lib/kinematics:leg",
         "//firmware/lib/tools:debug",
         "@arduino_core",

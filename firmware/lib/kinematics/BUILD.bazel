@@ -7,11 +7,19 @@ cc_library(
     srcs = ["leg.cc"],
     hdrs = [
         "coordinate.h",
+        "i_servo.h",
         "leg.h",
     ],
     includes = ["."],
+)
+
+cc_library(
+    name = "hardware",
+    hdrs = [
+        "hardware_servo.h",
+    ],
+    includes = ["."],
     deps = [
-        "//firmware/lib/tools:debug",
         "@arduino_core",
         "@arduino_servo",
     ],

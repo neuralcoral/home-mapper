@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <hardware_servo.h>
 
 #include "leg.h"
 #include "debug.h"
@@ -42,23 +43,35 @@
 #define COXA_6_THETA 83.0
 #define FEMUR_6_THETA 87.0
 
-Link femur1(FEMUR_LENGTH, FEMUR_1_THETA, FEMUR_1_PIN);
-Link coxa1(COXA_LENGTH, COXA_1_THETA, COXA_1_PIN);
+HardwareServo femur1Servo(FEMUR_1_PIN);
+HardwareServo coxa1Servo(COXA_1_PIN);
+Link femur1(FEMUR_LENGTH, FEMUR_1_THETA, femur1Servo);
+Link coxa1(COXA_LENGTH, COXA_1_THETA, coxa1Servo);
 
-Link femur2(FEMUR_LENGTH, FEMUR_2_THETA, FEMUR_2_PIN);
-Link coxa2(COXA_LENGTH, COXA_2_THETA, COXA_2_PIN);
+HardwareServo femur2Servo(FEMUR_2_PIN);
+HardwareServo coxa2Servo(COXA_2_PIN);
+Link femur2(FEMUR_LENGTH, FEMUR_2_THETA, femur2Servo);
+Link coxa2(COXA_LENGTH, COXA_2_THETA, coxa2Servo);
 
-Link femur3(FEMUR_LENGTH, FEMUR_3_THETA, FEMUR_3_PIN);
-Link coxa3(COXA_LENGTH, COXA_3_THETA, COXA_3_PIN);
+HardwareServo femur3Servo(FEMUR_3_PIN);
+HardwareServo coxa3Servo(COXA_3_PIN);
+Link femur3(FEMUR_LENGTH, FEMUR_3_THETA, femur3Servo);
+Link coxa3(COXA_LENGTH, COXA_3_THETA, coxa3Servo);
 
-Link femur4(FEMUR_LENGTH, FEMUR_4_THETA, FEMUR_4_PIN);
-Link coxa4(COXA_LENGTH, COXA_4_THETA, COXA_4_PIN);
+HardwareServo femur4Servo(FEMUR_4_PIN);
+HardwareServo coxa4Servo(COXA_4_PIN);
+Link femur4(FEMUR_LENGTH, FEMUR_4_THETA, femur4Servo);
+Link coxa4(COXA_LENGTH, COXA_4_THETA, coxa4Servo);
 
-Link femur5(FEMUR_LENGTH, FEMUR_5_THETA, FEMUR_5_PIN);
-Link coxa5(COXA_LENGTH, COXA_5_THETA, COXA_5_PIN);
+HardwareServo femur5Servo(FEMUR_5_PIN);
+HardwareServo coxa5Servo(COXA_5_PIN);
+Link femur5(FEMUR_LENGTH, FEMUR_5_THETA, femur5Servo);
+Link coxa5(COXA_LENGTH, COXA_5_THETA, coxa5Servo);
 
-Link femur6(FEMUR_LENGTH, FEMUR_6_THETA, FEMUR_6_PIN);
-Link coxa6(COXA_LENGTH, COXA_6_THETA, COXA_6_PIN);
+HardwareServo femur6Servo(FEMUR_6_PIN);
+HardwareServo coxa6Servo(COXA_6_PIN);
+Link femur6(FEMUR_LENGTH, FEMUR_6_THETA, femur6Servo);
+Link coxa6(COXA_LENGTH, COXA_6_THETA, coxa6Servo);
 
 Leg leg1(coxa1, femur1);
 Leg leg2(coxa2, femur2);

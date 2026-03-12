@@ -24,7 +24,7 @@ void CalibrationTool::calibrateLegs(const int& startPin, const int& endPin)
         int pin = startPin + i;
         int currentAngle = 90; // Default starting point
 
-        legServos[i].attach(pin);
+        legServos[i].setup(pin);
         legServos[i].write(currentAngle);
 
         Serial.print("\n>>>> CONTROLLING PIN: ");
