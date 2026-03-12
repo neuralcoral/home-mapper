@@ -1,0 +1,37 @@
+module(
+    name = "home_mapper",
+    version = "1.0",
+)
+
+bazel_dep(name = "rules_cc", version = "0.2.17")
+bazel_dep(name = "platforms", version = "1.0.0")
+bazel_dep(name = "googletest", version = "1.17.0.bcr.2")
+
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "avr_toolchain_linux",
+    build_file = "//firmware/toolchain:avr_toolchain.BUILD",
+    sha256 = "d90765e6d975950afa235aa998122f97aae8b00504399068b6c9d0bf4994b0fe",
+    strip_prefix = "avr-gcc-15.2.0-x64-linux",
+    url = "https://github.com/ZakKemble/avr-gcc-build/releases/download/v15.2.0-1/avr-gcc-15.2.0-x64-linux.tar.bz2",
+)
+
+http_archive(
+    name = "arduino_core",
+    build_file = "//firmware/toolchain:arduino_core.BUILD",
+    sha256 = "eb06ac7cbce5667bff1fbb08b6085fe911db4b3bb9f3494ab83a8cc08d04aaf8",
+    strip_prefix = "ArduinoCore-avr-1.8.7",
+    url = "https://github.com/arduino/ArduinoCore-avr/archive/refs/tags/1.8.7.tar.gz",
+)
+
+http_archive(
+    name = "arduino_servo",
+    # Injecting another custom BUILD file
+    build_file = "//firmware/toolchain:arduino_servo.BUILD",
+    sha256 = "7b829d24f9165e9d2689d157568f066f290cbe41734a9384b9a06250a69e7993",
+    strip_prefix = "Servo-1.3.0",
+    url = "https://github.com/arduino-libraries/Servo/archive/refs/tags/1.3.0.tar.gz",
+)
+
+register_toolchains("//firmware/toolchain:all")

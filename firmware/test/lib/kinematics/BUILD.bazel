@@ -1,0 +1,10 @@
+load("@rules_cc//cc:defs.bzl", "cc_test")
+
+cc_test(
+    name = "leg_test",
+    srcs = ["leg_test.cc"],
+    deps = [
+        "//firmware/lib/kinematics:leg",
+        "@googletest//:gtest_main",
+    ],
+)

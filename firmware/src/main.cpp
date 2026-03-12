@@ -1,68 +1,107 @@
 #include <Arduino.h>
-#include <Servo.h>
+#include <hardware_servo.h>
 
-#define START_PIN 2
-#define END_PIN 13
-#define SERVO_COUNT (END_PIN - START_PIN + 1)
+#include "leg.h"
+#include "debug.h"
 
-Servo legServos[SERVO_COUNT];
+#define FEMUR_LENGTH 6.0
+#define COXA_LENGTH 4.0
+
+// Front Left
+#define COXA_1_PIN 3
+#define FEMUR_1_PIN 2
+#define COXA_1_THETA 90.0
+#define FEMUR_1_THETA 100.0
+
+// Front Right
+#define COXA_2_PIN 9
+#define FEMUR_2_PIN 8
+#define COXA_2_THETA 90.0
+#define FEMUR_2_THETA 90.0
+
+// Center Left
+#define COXA_3_PIN 5
+#define FEMUR_3_PIN 4
+#define COXA_3_THETA 90.0
+#define FEMUR_3_THETA 85.0
+
+// Center Right
+#define COXA_4_PIN 11
+#define FEMUR_4_PIN 10
+#define COXA_4_THETA 100.0
+#define FEMUR_4_THETA 82.0
+
+// Back Left
+#define COXA_5_PIN 7
+#define FEMUR_5_PIN 6
+#define COXA_5_THETA 90.0
+#define FEMUR_5_THETA 95.0
+
+// Back Right
+#define COXA_6_PIN 13
+#define FEMUR_6_PIN 12
+#define COXA_6_THETA 83.0
+#define FEMUR_6_THETA 87.0
+
+HardwareServo femur1Servo(FEMUR_1_PIN);
+HardwareServo coxa1Servo(COXA_1_PIN);
+Link femur1(FEMUR_LENGTH, FEMUR_1_THETA, femur1Servo);
+Link coxa1(COXA_LENGTH, COXA_1_THETA, coxa1Servo);
+
+HardwareServo femur2Servo(FEMUR_2_PIN);
+HardwareServo coxa2Servo(COXA_2_PIN);
+Link femur2(FEMUR_LENGTH, FEMUR_2_THETA, femur2Servo);
+Link coxa2(COXA_LENGTH, COXA_2_THETA, coxa2Servo);
+
+HardwareServo femur3Servo(FEMUR_3_PIN);
+HardwareServo coxa3Servo(COXA_3_PIN);
+Link femur3(FEMUR_LENGTH, FEMUR_3_THETA, femur3Servo);
+Link coxa3(COXA_LENGTH, COXA_3_THETA, coxa3Servo);
+
+HardwareServo femur4Servo(FEMUR_4_PIN);
+HardwareServo coxa4Servo(COXA_4_PIN);
+Link femur4(FEMUR_LENGTH, FEMUR_4_THETA, femur4Servo);
+Link coxa4(COXA_LENGTH, COXA_4_THETA, coxa4Servo);
+
+HardwareServo femur5Servo(FEMUR_5_PIN);
+HardwareServo coxa5Servo(COXA_5_PIN);
+Link femur5(FEMUR_LENGTH, FEMUR_5_THETA, femur5Servo);
+Link coxa5(COXA_LENGTH, COXA_5_THETA, coxa5Servo);
+
+HardwareServo femur6Servo(FEMUR_6_PIN);
+HardwareServo coxa6Servo(COXA_6_PIN);
+Link femur6(FEMUR_LENGTH, FEMUR_6_THETA, femur6Servo);
+Link coxa6(COXA_LENGTH, COXA_6_THETA, coxa6Servo);
+
+Leg leg1(coxa1, femur1);
+Leg leg2(coxa2, femur2);
+Leg leg3(coxa3, femur3);
+Leg leg4(coxa4, femur4);
+Leg leg5(coxa5, femur5);
+Leg leg6(coxa6, femur6);
 
 void setup() {
     Serial.begin(115200);
-    while(!Serial);
-
-    Serial.println("--- Hexapod Interactive Calibration ---");
-    Serial.println("Commands:");
-    Serial.println("  [0-180] : Set current servo to that angle");
-    Serial.println("  'y'     : Lock in and move to NEXT servo");
-
-    for (int i = 0; i < SERVO_COUNT; i++) {
-        int pin = START_PIN + i;
-        int currentAngle = 90; // Default starting point
-
-        legServos[i].attach(pin);
-        legServos[i].write(currentAngle);
-
-        Serial.print("\n>>>> CONTROLLING PIN: ");
-        Serial.println(pin);
-
-        bool movingToNext = false;
-        while (!movingToNext) {
-            if (Serial.available() > 0) {
-                // Check if the first character is 'y'
-                char firstChar = Serial.peek();
-
-                if (firstChar == 'y' || firstChar == 'Y') {
-                    Serial.read(); // Clear the 'y' from buffer
-                    Serial.print("Pin ");
-                    Serial.print(pin);
-                    Serial.println(" locked. Moving on...");
-                    movingToNext = true;
-                }
-                else if (isdigit(firstChar)) {
-                    int inputAngle = Serial.parseInt();
-
-                    if (inputAngle >= 0 && inputAngle <= 180) {
-                        currentAngle = inputAngle;
-                        legServos[i].write(currentAngle);
-                        Serial.print("  -> Pin ");
-                        Serial.print(pin);
-                        Serial.print(" set to: ");
-                        Serial.println(currentAngle);
-                    } else {
-                        Serial.println("  !! Angle must be 0-180");
-                    }
-                }
-                else {
-                    // Clear junk characters (like spaces or newlines)
-                    Serial.read();
-                }
-            }
-        }
-    }
-    Serial.println("\nAll servos calibrated. Setup complete.");
-}
-
-void loop() {
-    // Keep alive
+    delay(2000);
+    LOG_INFO("==== Setting up Legs! ====");
+    LOG_VAL("Setting up Leg", 1);
+    leg1.setup();
+    delay(1000);
+    LOG_VAL("Setting up Leg", 2);
+    leg2.setup();
+    delay(1000);
+    LOG_VAL("Setting up Leg", 3);
+    leg3.setup();
+    delay(1000);
+    LOG_VAL("Setting up Leg", 4);
+    leg4.setup();
+    delay(1000);
+    LOG_VAL("Setting up Leg", 5);
+    leg5.setup();
+    delay(1000);
+    LOG_VAL("Setting up Leg", 6);
+    leg6.setup();
+    delay(1000);
+    LOG_INFO("==== Set up Complete! ====");
+}void loop() {
 }
