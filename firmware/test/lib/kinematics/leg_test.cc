@@ -1,15 +1,10 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 #include "leg.h"
-#include "i_servo.h"
+#include "mock_servo.h"
 
 using ::testing::NiceMock;
 
-class MockServo : public IServo {
-public:
-    MOCK_METHOD(void, setup, (), (override));
-    MOCK_METHOD(void, write, (int angle), (override));
-};
 
 class LegTest : public ::testing::Test {
 protected:

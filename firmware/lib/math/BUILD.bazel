@@ -1,0 +1,22 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+package(default_visibility = ["//visibility:public"])
+
+config_setting(
+    name = "is_avr",
+    constraint_values = ["//firmware/toolchain:avr"],
+)
+
+cc_library(
+    name = "hexapod_math",
+    srcs = select({
+        ":is_avr": ["math_avr.cc"],
+        "//conditions:default": ["math_host.cc"],
+    }),
+    hdrs = ["hexapod_math.h"],
+    includes = ["."],
+    deps = select({
+        ":is_avr": ["@arduino_core"],
+        "//conditions:default": [],
+    }),
+)

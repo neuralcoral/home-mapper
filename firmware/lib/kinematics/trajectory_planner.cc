@@ -1,4 +1,5 @@
 #include "trajectory_planner.h"
+#include "firmware/lib/math/hexapod_math.h"
 
 TrajectoryPlanner::TrajectoryPlanner() {}
 
@@ -11,11 +12,11 @@ void TrajectoryPlanner::plan(Leg &leg, LegAngleLimits leg_angle_limits, float ph
 }
 
 float getCoxaSwing(const LinkAngleLimits& limits, const float& phase) {
-    return 180.0 * sin(PI * phase);
+    return 180.0 * HexapodMath::sine(HexapodMath::PI * phase);
 }
 
 float getFemurSwing(const LinkAngleLimits& limits, const float& phase) {
-    return 90.0 * pow(2.0 * phase, 2.0);
+    return 90.0 * HexapodMath::power(2.0 * phase, 2.0);
 }
 
 void TrajectoryPlanner::handleSwing(Leg& leg, const LegAngleLimits& leg_angle_limits, const float& phase) {
@@ -27,14 +28,14 @@ void TrajectoryPlanner::handleSwing(Leg& leg, const LegAngleLimits& leg_angle_li
 }
 
 float getCoxaStance(const LinkAngleLimits& limits, const float& phase) {
-    return 180.0 * sin(PI * phase);
+    return 180.0 * HexapodMath::sine(HexapodMath::PI * phase);
 }
 
 float getFemurStance(const LinkAngleLimits& limits, const float& phase) {
     if (phase < 0.9) {
         return limits.lower_bound;
     } else {
-        return 90.0 * cos(HALF_PI * (phase - 0.9) / 0.1);
+        return 90.0 * HexapodMath::cosine(HexapodMath::HALF_PI * (phase - 0.9) / 0.1);
     }
 }
 

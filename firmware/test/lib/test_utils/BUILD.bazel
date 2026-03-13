@@ -1,0 +1,13 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+package(default_visibility = ["//visibility:public"])
+
+cc_library(
+    name = "mocks",
+    hdrs = ["mock_servo.h"],
+    includes = ["."],
+    deps = [
+        "//firmware/lib/kinematics:leg",
+        "@googletest//:gtest_main",
+    ],
+)

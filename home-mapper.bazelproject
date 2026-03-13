@@ -1,0 +1,22 @@
+directories:
+  .
+
+# Automatically includes all relevant targets under the 'directories' above
+derive_targets_from_directories: true
+
+targets:
+  //firmware/src:all
+
+build_flags:
+  # Uncomment below and re-sync in order to get the avr highlighting
+  # --config=avr
+  --copt=-DARDUINO=10800
+  --copt=-DARDUINO_AVR_UNO
+  --copt=-D__AVR_ATmega328P__
+  --copt=-x
+  --copt=c++
+  --experimental_generate_llvm_lcov
+
+additional_languages:
+  # Uncomment any additional languages you want supported
+  python

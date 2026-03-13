@@ -14,6 +14,19 @@ cc_library(
 )
 
 cc_library(
+    name = "trajectory_planner",
+    srcs = ["trajectory_planner.cc"],
+    hdrs = [
+        "trajectory_planner.h",
+    ],
+    includes = ["."],
+    deps = [
+        "leg",
+        "//firmware/lib/math:hexapod_math",
+    ],
+)
+
+cc_library(
     name = "hardware",
     hdrs = [
         "hardware_servo.h",

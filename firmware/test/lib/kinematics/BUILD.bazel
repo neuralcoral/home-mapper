@@ -5,6 +5,17 @@ cc_test(
     srcs = ["leg_test.cc"],
     deps = [
         "//firmware/lib/kinematics:leg",
+        "//firmware/test/lib/test_utils:mocks",
+        "@googletest//:gtest_main",
+    ],
+)
+
+cc_test(
+    name = "trajectory_planner_test",
+    srcs = ["trajectory_planner_test.cc"],
+    deps = [
+        "//firmware/lib/kinematics:trajectory_planner",
+        "//firmware/test/lib/test_utils:mocks",
         "@googletest//:gtest_main",
     ],
 )
